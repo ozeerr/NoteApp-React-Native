@@ -1,0 +1,9 @@
+const APPCOLOR={
+    PRIMARY:"#427DDE",
+    SECONDARY:"#404040",
+    WHITE:"#e6e6e6",
+    GRAY:"#9F9F9F",
+    SCREENBACKGROUND:"#E3E3E3"
+};
+
+export default APPCOLOR;
