@@ -1,12 +1,13 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../utils/constants';
 import {MYNOTES} from '../../utils/routes';
 import { HambergerMenu, SearchNormal1, More } from 'iconsax-react-native';
 import APPCOLOR from '../../theme/colors';
+import Context from '../../context';
 
 const Header = ({deleteAll}) => {
-  const [visible, setVisible] = useState(false);
+    const {visible,setVisible}=useContext(Context)
   return (
     <View style={styles.headerWrapper}>
       <View style={{alignItems:"center"}}>

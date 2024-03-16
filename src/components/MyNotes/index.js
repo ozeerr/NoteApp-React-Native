@@ -22,7 +22,7 @@ const MyNotesCard = ({item,deleteItem,updateItem}) => {
     <TouchableOpacity onPress={()=>{deleteItem(item)}} >
         <Text style={{color:"red"}}>Delete</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=>{updateItem(item)}} >
+      <TouchableOpacity onPress={()=>{navigation.navigate(ADDNOTE,{type:"Update",item:item})}} >
         <Text style={{color:"blue"}}>Edit</Text>
       </TouchableOpacity>
     </View>

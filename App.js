@@ -6,11 +6,13 @@ import NoteProvider from './src/context/provider'
 
 const App = () => {
   return (
+      <NavigationContainer>
     <NoteProvider>
-    <NavigationContainer>
+  
    <RootNavigator/>
-    </NavigationContainer>
     </NoteProvider>
+    </NavigationContainer>
+
   )
 }
 

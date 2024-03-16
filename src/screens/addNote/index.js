@@ -1,38 +1,53 @@
 import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useState } from 'react'
-import DefaultButton from '../../components/ui/defaultButton'
+import React, { useContext, useEffect, useState } from 'react'
 import ToolsPalette from '../../components/ui/toolsPalette'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils/constants'
 import APPCOLOR from '../../theme/colors'
-import { useNavigation } from '@react-navigation/native'
-import { MYNOTES } from '../../utils/routes'
+
 import Context from '../../context'
+import { MYNOTES } from '../../utils/routes'
 
-const AddNote = () => {
-
-    const navigaton=useNavigation();
-    const [title, setTitle] = useState();
-    const [content, setContent] = useState();
-   
+const AddNote = ({route,navigation}) => {
+  const {item,type}=route?.params
+    const [title, setTitle] = useState(item?.title);
+    const [description, setDescription] = useState(item?.description);
+    const [check,setCheck]=useState(false)
+    const {addNote,editNote}=useContext(Context)
   
-    const handler=()=>{
-      if(title!=="" && content!==""){
-        setText(
-          [ ...text,
-           {
-            title:title,
-           content:content
-          ,id:new Date().getTime().toString()}]
-       )
-       setTitle("");
-        setContent("");
-       navigaton.navigate(MYNOTES)
+var bugununTarihi = new Date();
+var yil = bugununTarihi.getFullYear().toString()+"-";
+var ay = "0"+(bugununTarihi.getMonth() + 1).toString()+"-";
+var gun = bugununTarihi.getDate().toString();
+    const saveNote=()=>{
+      if(title==null||description==null){
+        setCheck(true)
       }
-      
+      else{
+       
+        const form={
+          title:title,
+          description:description,
+          date:yil+ay+gun,
+          id:Math.floor(Math.random()*1000).toString()
+        }
+        addNote(form)
+      }
     }
+
+    const updateNote=()=>{
+      const form={
+        title:title,
+        description:description,
+        date:yil+ay+gun,
+        id:item.id
+      }
+      editNote(item.id,form)
+    }
+   
 
   return (
     <View style={styles.container}>
+      {check?<Text style={{fontWeight:"bold",padding:20,borderWidth:0.2,position:"absolute",top:10,zIndex:200,backgroundColor:"white"}}>Please fill in the relevant fields.</Text>:null}
      <ToolsPalette/>
       <View style={styles.contentWrapper}>
         <View>
@@ -46,13 +61,13 @@ const AddNote = () => {
         <View style={{height: "100%",padding:20}} >
         <TextInput
         style={{width:"100%",}}
-        onChangeText={(t)=>setContent(t)}
-        value={content}
+        onChangeText={(t)=>setDescription(t)}
+        value={description}
         placeholder='Description here...'
        />
         </View>
-        <TouchableOpacity style={styles.btncontainer} onPress={handler} >
-          <Text style={styles.text}>Attach File</Text>
+        <TouchableOpacity style={styles.btncontainer} onPress={type=="Update" ? updateNote : saveNote}   >
+          <Text style={styles.text}>{type=="Add"?"Save":"Save Changes"}</Text>
         </TouchableOpacity>
       </View>
       

@@ -31,12 +31,20 @@ function RootNavigator() {
       <Stack.Screen
         name={NOTEDETAIL}
         component={NoteDetail}
+        options={{
+          headerTintColor:APPCOLOR.GRAY,
+          headerBackTitleVisible:false
+        }}
     
       />
 
       <Stack.Screen
         name={NOTEEDIT}
         component={EditNoteScreen}
+        options={{
+          headerTintColor:APPCOLOR.GRAY,
+          headerBackTitleVisible:false
+        }}
     
       />
     </Stack.Navigator>
